@@ -920,7 +920,8 @@ int dm_easy_mesh_t::decode_config_reset(em_subdoc_info_t *subdoc, const char *ke
 		for (i = 0; i < static_cast<unsigned int> (cJSON_GetArraySize(preference_list_obj)); i++) {
 			preference_obj = cJSON_GetArrayItem(preference_list_obj, static_cast<int> (i));
 
-			if ((obj = cJSON_GetObjectItem(preference_obj, "rpi")) != NULL) {
+			if ((m_num_preferences < EM_MAX_PLATFORMS) &&
+					((obj = cJSON_GetObjectItem(preference_obj, "rpi")) != NULL)) {
 				strncpy(m_preference[m_num_preferences].platform, "rpi", strlen("rpi") + 1);
 				if (strncmp(cJSON_GetStringValue(obj), "eth", strlen("eth")) == 0) {
 					m_preference[m_num_preferences].media = em_media_type_ieee8023ab;
@@ -930,7 +931,8 @@ int dm_easy_mesh_t::decode_config_reset(em_subdoc_info_t *subdoc, const char *ke
 				m_num_preferences++;
 			} 
 
-			if ((obj = cJSON_GetObjectItem(preference_obj, "sim")) != NULL) {
+			if ((m_num_preferences < EM_MAX_PLATFORMS) &&
+					((obj = cJSON_GetObjectItem(preference_obj, "sim")) != NULL)) {
 				strncpy(m_preference[m_num_preferences].platform, "sim", strlen("sim") + 1);
 				if (strncmp(cJSON_GetStringValue(obj), "ens", strlen("ens")) == 0) {
 					m_preference[m_num_preferences].media = em_media_type_ieee8023ab;
@@ -938,7 +940,8 @@ int dm_easy_mesh_t::decode_config_reset(em_subdoc_info_t *subdoc, const char *ke
 				m_num_preferences++;
 			}
 
-			if ((obj = cJSON_GetObjectItem(preference_obj, "bpi")) != NULL) {
+			if ((m_num_preferences < EM_MAX_PLATFORMS) &&
+					((obj = cJSON_GetObjectItem(preference_obj, "bpi")) != NULL)) {
                                 strncpy(m_preference[m_num_preferences].platform, "bpi", strlen("bpi") + 1);
                                 if (strncmp(cJSON_GetStringValue(obj), "erouter", strlen("erouter")) == 0) {
                                         m_preference[m_num_preferences].media = em_media_type_ieee8023ab;
